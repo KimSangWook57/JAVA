@@ -28,6 +28,7 @@ public static void main(String[] args) {
     // 대문자가 소문자보다 빠르다.
     for(int i = 0; i < sa.length; i++) {
     	for(int j = i + 1; j < sa.length; j++) {
+    		// 왼쪽 값이 오른쪽 값보다 크다면 둘의 위치를 바꾸어 준다.
     		if (sa[i].compareTo(sa[j]) > 0) {
     	    	String temp = sa[i];
     			sa[i] = sa[j];
@@ -35,9 +36,7 @@ public static void main(String[] args) {
     	    } 
     	}
     }    
-    
 
-    
     // ---------------------------
 
     int bufferSize = 10240;
