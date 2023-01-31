@@ -136,10 +136,21 @@ public class Chap3_객체정렬 {
 			lst3.add(data1);
 			data1 = iter1.next();
 		}
+		
 		while(iter2.hasNext()) {
 			lst3.add(data2);
 			data2 = iter2.next();
 		}
+		// 방문이 끝났을 때 남은 원소들을 어떻게 더할 것인가?
+		if(data1.compareTo(data2) < 0) {
+			lst3.add(data1);
+			lst3.add(data2);
+		} 
+		else {
+			lst3.add(data2);
+			lst3.add(data1);
+		}
+		
 		
 		System.out.println();
 		System.out.println("merge:: ");
@@ -148,21 +159,21 @@ public class Chap3_객체정렬 {
 		// 새로운 과일인 "참외"를 넣는다.
 		Fruit newFruit = new Fruit("참외", 100);
 		// binary search
+		// 익명클래스 사용
 		Comparator<Fruit> cc = new Comparator<Fruit>() {
-			// 익명클래스 사용
 			public int compare(Fruit u1, Fruit u2) {
 				return u1.compareTo(u2);
 			}
 		};
+		// 컬렉션.
 		int res = cc.compare(data1, newFruit);
 		if (res > 0)
 			System.out.println("\ndata1 > newFruit\n");
-		/*
-		 * System.out.println(); int result = Collections.binarySearch(lst3, newFruit, cc); 
-		 * System.out.println("\nCollections.binarySearch() 조회결과::" +
-		 * lst3.get(result));
-		 *  // 이름이 같은 것만? 아니면 이름과 가격이 같은 것만?
-		 */
+		
+		System.out.println(); int result = Collections.binarySearch(lst3, newFruit, cc); 
+		System.out.println("\nCollections.binarySearch() 조회결과::" +	lst3.get(result)); 
+		// 이름이 같은 것만? 아니면 이름과 가격이 같은 것만?
+		 
 		
 		// 배열 생성.
 		Fruit[] fa = new Fruit[lst3.size()];
@@ -170,16 +181,22 @@ public class Chap3_객체정렬 {
 		fa = lst3.toArray(fa);
 		int result3 = Arrays.binarySearch(fa, newFruit, cc);
 		System.out.println("\nArrays.binarySearch() 조회결과::" + lst3.get(result3));
-		/*
-		 * int result2 = binSearch(fa, lst3.size(), newFruit);
-		 * System.out.println("\nbinSearch() 조회결과:" + lst3.get(result2));
-		 */
+		
+		// 내가 직접 만들어서 구현.
+//		int result2 = binSearch(fa, lst3.size(), newFruit);
+//		System.out.println("\nbinSearch() 조회결과:" + lst3.get(result2));
+		
 	}
 
 	// 교재 109 페이지 참조하여 구현.
 	// 비교연산자 부분에 주의. (CompareTo 사용.)
+	// static <T> int binarySearch( T[] a(검색 대상), T key(키값), Comparator<? super T> c(분별 조건) )
 	static int binSearch(Fruit[] a, int n, Fruit f) {
 		// 구현할 부분
+		// 비교하는 코드를 만들어서 넣어주어야 한다...
+		// Fruit f가 존재한다면...
 		
+		// Fruit f가 존재하지 않는다면...
+			
 	}
 }
