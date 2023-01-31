@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 //10장 Collection, Test01, Test02를 사용
 import java.util.ArrayList;
@@ -65,10 +66,12 @@ public class ArraryListMerge수정본 {
 			for (int i = 0; i <sarray1.length; i++) {
 				sarray1[i] = sarray1[i].trim();  // 텍스트 공백 제거
 			}
+			System.out.println();
+			System.out.print("sarray1 : ");
 			for (String city : sarray1)
 				System.out.print(city + " ");
 			System.out.println();
-
+			System.out.print("sarray1 : ");
 			for (int i = 0; i <sarray2.length; i++) {
 				sarray2[i] = sarray2[i].trim();
 			}
@@ -76,8 +79,29 @@ public class ArraryListMerge수정본 {
 				System.out.print(city + " ");
 			System.out.println();
 			System.out.println("+++++++");
+			// 배열을 정리하는 방법들.
+			// 교수님 예제.
+			/*
+			// 방법1
+			Arrays.sort(sarray1, (a,b) -> a.compareTo(b)); 
+		 	// 방법2
+			Arrays.sort(sarray1, new Comparator<String>() {
+			      @Override
+			      public int compare(String a1, String a2) {
+			    	  return a1.compareTo(s2);
+			      }
+			   });
+			//방법3
+		    Comparator<String> cc1 = new Comparator<String>() {//익명클래스 사용 
+		        public int compare(String u1, String u2) {
+		          return u1.compareTo(u2);
+		        }
+		      };  
+		      Arrays.sort(sarray1, cc1);
+			*/
+		      
 			// file1에서 read하여 list1.add()한다.
-			// 배열을 list로 만드는 방법
+			// 배열을 list로 만드는 방법.
 			
 			// 방법1:
 			ArrayList<String> list1 = new ArrayList<>();
@@ -107,20 +131,44 @@ public class ArraryListMerge수정본 {
 			list2 = removeDuplicate(list2);
 			
 			// 중복 제거 후 
-			System.out.print("\n" + "list1******");
+			System.out.print("\n" + "중복 제거 후 list1: ");
 			for (String city : list1)
 				System.out.print(city + " ");
-			System.out.print("\n" + "list2******");
+			System.out.print("\n" + "중복 제거 후 list2: ");
 			for (String city : list2)
 				System.out.print(city + " ");
 			ArrayList<String> list3 = new ArrayList<String>();
+			// list를 사용하여 merge.
+			// 교수님 예제.
+			/*
+			int ix = 0, iy = 0;
+			while (ix < list1.size() && iy < list2.size()) {
+				if (list1.get(ix).compareTo(list2.get(iy)) < 0) {
+					list3.add(list1.get(ix++));
+				}
+				else if (list1.get(ix).compareTo(list2.get(iy)) > 0) {
+					list3.add(list2.get(iy++));
+				}
+				else {
+					list3.add(list1.get(ix++));
+					list3.add(list2.get(iy++));
+				}
+			}
+			while (ix < list1.size()) {
+				list3.add(list1.get(ix++));
+			}
+			while (iy < list2.size()) {
+				list3.add(list2.get(iy++));
+			}
+			*/
+			
 			//--------------------- array version: merge에 중복 제거하면 정상 동작함 
 			String [] sl1 = new String[list1.size()];
 			String [] sl2 = new String[list2.size()];
 			String [] sl3 = new String[list1.size() + list2.size()];
 			sl1 = list1.toArray(sl1);
 			sl2 = list2.toArray(sl2);
-			System.out.println();
+			System.out.println("배열 출력");
 			System.out.print("sl1 : ");
 			for (String city : sl1)
 				System.out.print(city + " ");
@@ -130,7 +178,9 @@ public class ArraryListMerge수정본 {
 				System.out.print(city + " ");
 			int px = 0, qx = 0, rx = 0;
 			int cnt1 = sl1.length, cnt2 = sl2.length;
-			//merge하는 부분을 구현: 스트링 배열이 정렬되고 중복이 제거된 경우
+			//merge하는 부분을 구현: 스트링 배열이 정렬되고 중복이 제거된 경우.
+			
+		    // 내 예시.
 			// 작은 값부터 넣기 위한 코드.
 			while(px < cnt1 && qx < cnt2) {
 				// sl1의 값이 더 작다면...
