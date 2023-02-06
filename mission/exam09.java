@@ -8,87 +8,54 @@ import java.util.ArrayList;
 
 public class exam09 {
 
-		
-//	public static void main(String[] args) {
-//		try (FileputStream fi = new FileputStream("input.txt");)
-//		{
-//			try (BufferedReader br = new BufferedReader(new FileReader("input.txt"));)
-//			
-//			String str;
-//			 
-//			while((str =br.read()) != null) {
-//				
-//				System.out.println(str);
-//			}str.split(str)	
-//			ArrayList<String> list = new ArrayList<String>();
-//		
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
-	
-		
+// 큰 정수 더하기 연산.
+// 루프와 arraylist 활용.
+// 배열을 뒤집는 메소드.
+
+
+// 내용 읽어들이기.
+
 	public static ArrayList<String> readNumbers() {
-		try (BufferedReader br = new BufferedReader(new FileReader("input.txt"));) {
 
-			ArrayList<String> list = new ArrayList<String>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+			String str = br.readLine();
 
-			String str;
-			while((str = br.readLine()) != null) {
-				System.out.printf("%30s\n", str);
-				list.add(str);
-			}				
-			return list;
-		} catch (IOException e) {
+			// 배열로 만들어서 리스트에 담기.
+
+			while (str != null) {
+				byte_list.add(str); // list에 저장.
+				str = br.readLine();
+			}
+
+			// ArrayReverse(byte_list);
+
+			System.out.println(byte_list);
+			br.close();
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	public static ArrayList<Integer> reverseNumber(String str) {
 
-		String[] sa = str.split("");
-		
-		ArrayList<Integer> ret = new ArrayList<>();
-		for (int i = sa.length -1 ; 0 <= i ; i--) {
-			ret.add(Integer.parseInt(sa[i]));
-		}
-		return ret;
-	}
-	
 	public static void main(String[] args) {
-		
-		// 먼저 데이터를 읽으들여서 배열로 만든다.
-		ArrayList<String> strArr = readNumbers();
-		if (strArr == null) {
-			System.out.println("Error");
-			return;
+
+		// 리스트 선언.
+		ArrayList<String> byte_list = new ArrayList<String>();
+
+		for (int i = 0; i < byte_list.size(); i++) {
+			System.out.println(byte_list.get(i));
 		}
-		
-		// 각 배열 데이터를 모두 잘라서 역순으로 숫자 배열로 만든다.
-		ArrayList<Integer> arr1 = reverseNumber(strArr.get(0));	// { 5, 4, 3, 2, 1 }
-		ArrayList<Integer> arr2 = reverseNumber(strArr.get(1)); // { 6, 7, 8, 9 }
-		
-		// 두 배열을 더한다.	==> arr1이 arr2보다 개수가 많다고 가정
-		if (arr1.size() < arr2.size() ) {
-			ArrayList<Integer> temp = arr1;
-			arr1 = arr2;
-			arr2 = temp;		
-		}
-		int add = 0;
-		for (int i = 0 ; i < arr2.size(); i++) {
-			int sum = arr1.get(i) + arr2.get(i) + add;
-			if (10 <= sum) 	add = 1;
-			else			add = 0;
-			arr1.set(i, sum % 10);
-		}
-		
-		// 출력한다.
-		String result = "";
-		for (int i = arr1.size() -1 ;0 <= i ; i--) {
-			//System.out.print(arr1.get(i));
-			result += arr1.get(i);
-		}
-		System.out.printf("%30s\n", result);
+
+		// 배열로 나눈 숫자들을 한 글자씩 담을 배열 만들기.
+
+		// 한 글자씩 나눈 배열들을 더하기.
+
+		// 내용물을 출력해서 파일로 만들기.
+
+		System.out.println("작업 종료.");
+
 	}
+
 }

@@ -1,110 +1,74 @@
 package edu.mission;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+// 2개의 큰 정수 더하기 연산.
+// 루프와 ArrayList 활용.
+// 배열을 뒤집는 메소드?
+// 내 예시.
 
 public class exam09_1 {
 
-	public static ArrayList<String> readNumbers() {
-
-		try (BufferedReader br = new BufferedReader(new FileReader("input.txt"));) {
-
-			ArrayList<String> list = new ArrayList<String>();
-			String str;
-
-			while ((str = br.readLine()) != null) {
-				System.out.printf("%30s\n", str);
-				list.add(str);
+	static ArrayList<String> arrStr = new ArrayList<>();
+	
+	public static void main(String[] args) throws IOException {
+		
+		try {
+			// 1줄씩 읽기 위해 Scanner 코드를 사용했다. 
+			Scanner sc = new Scanner(new File("input.txt"));
+			// 내용이 있다면 1줄씩 읽어와서 ArrayList에 넣어준다.
+			while(sc.hasNext()) {
+				String str = sc.next();
+				arrStr.add(str);
+				System.out.println("1줄 복사 완료!");
 			}
-			return list;
-
-		} catch (IOException e) {
+			
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("내용 복사 실패!");
+			
 		}
-		return null;
+		
+		// ArrayList를 array로 변환.
+		String[] newNum = arrStr.toArray(new String[0]);
+		
+		// 배열에 있는 두 값 더하기.
+		// 문자열을 숫자로 바꾸어서 더해 준다.
+		int n1 = Integer.valueOf(newNum[0]);
+		int n2 = Integer.valueOf(newNum[1]);
+		int result = n1 + n2;
 
-	}
+		// 출력 내용 확인 코드.
+		System.out.println("num(Str) : " + arrStr);
+		System.out.println("newNum(int) : " + Arrays.toString(newNum));
+		System.out.println("result : " + result);
+		
+		// 결과값을 파일로 만들기.
+		BufferedOutputStream bs = null;
 
-	public static ArrayList<Integer> reverseNumber(String str) {
-
-		String[] sa = str.split("");
-
-		ArrayList<Integer> ret = new ArrayList<>();
-
-		for (int i = sa.length - 1; 0 <= i; i--) {
-
-			ret.add(Integer.parseInt(sa[i]));
-
-		}
-
-		return ret;
-
-	}
-
-	public static void main(String[] args) {
-
-// 먼저 데이터를 읽으들여서 배열로 만든다.
-
-		ArrayList<String> strArr = readNumbers();
-
-		if (strArr == null) {
-
-			System.out.println("Error");
-
-			return;
-
-		}
-
-// 각 배열 데이터를 모두 잘라서 역순으로 숫자 배열로 만든다.
-
-		ArrayList<Integer> arr1 = reverseNumber(strArr.get(0)); // { 5, 4, 3, 2, 1 }
-
-		ArrayList<Integer> arr2 = reverseNumber(strArr.get(1)); // { 6, 7, 8, 9 }
-
-// 두 배열을 더한다. ==> arr1이 arr2보다 개수가 많다고 가정
-
-		if (arr1.size() < arr2.size()) {
-
-			ArrayList<Integer> temp = arr1;
-
-			arr1 = arr2;
-
-			arr2 = temp;
-
-		}
-
-		int add = 0;
-
-		for (int i = 0; i < arr2.size(); i++) {
-
-			int sum = arr1.get(i) + arr2.get(i) + add;
-
-			if (10 <= sum)
-				add = 1;
-
-			else
-				add = 0;
-
-			arr1.set(i, sum % 10);
-
-		}
-
-// 출력한다.
-
-		String result = "";
-
-		for (int i = arr1.size() - 1; 0 <= i; i--) {
-
-//System.out.print(arr1.get(i));
-
-			result += arr1.get(i);
-
-		}
-
-		System.out.printf("%30s\n", result);
+		try {
+			bs = new BufferedOutputStream(new FileOutputStream("output.txt"));
+			// 결과값을 문자열로 다시 변환해서 넣어주었다.
+			String str = Integer.toString(result);
+			// FileOutputStream의 write() 메소드는 파라미터로 byte만 받는다(고 한다).
+			bs.write(str.getBytes());
+			
+		} catch (Exception e) {
+			  e.getStackTrace();
+			  System.out.println("파일 생성 실패!");
+			  
+		} finally {
+			  bs.close();
+			  System.out.println("파일 생성 작업 완료!");
+			  
+		} 
 
 	}
 
