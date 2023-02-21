@@ -1,12 +1,9 @@
 package chap05_recursive;
 
-import java.awt.Point;
 
-public class test01 {
-    
 	/* Java program to solve N Queen Problem using
 	   backtracking */
-	public class NQueenProblem {
+	public class test01 {
 	    final int N = 4;
 	 
 	    /* A utility function to print solution */
@@ -108,8 +105,7 @@ public class test01 {
 	    // driver program to test above function
 	    public static void main(String args[])
 	    {
-	        NQueenProblem Queen = new NQueenProblem();
+	        test01 Queen = new test01();
 	        Queen.solveNQ();
 	    }
 	}
-}
