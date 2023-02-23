@@ -21,14 +21,7 @@ import java.util.Stack;
 //---교수님 피드백--- 1106
 //그런데 NextMove()를 2군데서 호출하는 것은 개선 여지가 있음
 //=> pop() 한 후에  do while()을 빠져나가서 실행하는 것으로 개선 여지 있음
-class Point {
-	int x, y;
 
-	public Point(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-}
 
 class Backtracking_Queen {
 
